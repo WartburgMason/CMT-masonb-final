@@ -1,0 +1,35 @@
+name: CI
+
+
+on: 
+  push:
+    branches: 
+      - '**'
+  pull_request:
+    branches: 
+      - '**'
+
+jobs:
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+        #Gets code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        #Sets up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        #Installs dependencies
+      - name: Install dependencies
+        run: npm install
+
+      #Runs tests
+      - name: Run tests
+        run: npm test
+
+  
