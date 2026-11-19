@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCare | Car Maintenance</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Auto<span>Care</span></h2>
+            </div>
+
+            <nav class="navigation">
+                <p class="nav-heading">MENU</p>
+
+                <a href="#" class="nav-link active">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span>🚗</span> My Vehicles
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span>🔧</span> Maintenance
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span>📅</span> Schedule
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span>💰</span> Expenses
+                </a>
+
+                <a href="#" class="nav-link">
+                    <span>📋</span> History
+                </a>
+
+                <p class="nav-heading">ACCOUNT</p>
+
+                <a href="#" class="nav-link">
+                    <span>⚙</span> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>AutoCare</p>
+                <small>Vehicle Management System</small>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Header -->
+            <header class="top-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Manage your vehicles and maintenance</p>
+                </div>
+
+                <div class="profile">
+                    <div class="profile-icon">JD</div>
+                    <div>
+                        <strong>John Doe</strong>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div>
+                    <h2>Welcome back, John!</h2>
+                    <p>Here's an overview of your vehicle maintenance.</p>
+                </div>
+            </section>
+
+            <!-- Statistics -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">🚗</div>
+                    <div>
+                        <p>Total Vehicles</p>
+                        <h2 id="totalVehicles">1</h2>
+                        <small>Registered vehicles</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">🔧</div>
+                    <div>
+                        <p>Upcoming Maintenance</p>
+                        <h2 id="upcomingMaintenance">0</h2>
+                        <small>Services scheduled</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">⚠</div>
+                    <div>
+                        <p>Overdue Maintenance</p>
+                        <h2>0</h2>
+                        <small>Requires attention</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">💰</div>
+                    <div>
+                        <p>Total Expenses</p>
+                        <h2 id="expenseDashboard"></h2>
+                        <small>This year</small>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Vehicle Section -->
+            <section class="content-section">
+
+    <div class="section-header">
+        <div>
+            <h2>My Vehicles</h2>
+            <p>Manage your registered vehicles</p>
+        </div>
+
+        <button class="primary-button" id="showVehicleForm">
+            + Add Vehicle
+        </button>
+    </div>
+
+    <!-- Add Vehicle Form -->
+    <div class="vehicle-form-container" id="vehicleFormContainer">
+    <h3 id="vehicleFormTitle">Add Vehicle</h3>
+
+    <form id="vehicleForm">
+        <input type="hidden" id="vehicleID">
+
+        <div class="vehicle-form-grid">
+            <div class="form-group">
+                <label for="vehicleMake">Make</label>
+                <input type="text" id="vehicleMake">
+                <span class="error-message" id="makeError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicleModel">Model</label>
+                <input type="text" id="vehicleModel">
+                <span class="error-message" id="modelError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicleYear">Year</label>
+                <input type="number" id="vehicleYear">
+                <span class="error-message" id="yearError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="vehicleMileage">Mileage</label>
+                <input type="number" id="vehicleMileage">
+                <span class="error-message" id="mileageError"></span>
+            </div>
+        </div>
+
+        <button type="submit" id="vehicleSubmitButton">Add Vehicle</button>
+        <button type="button" id="cancelVehicleForm">Cancel</button>
+    </form>
+</div>
+
+    <!-- Dynamically Generated Vehicle Cards -->
+    <div class="vehicle-grid" id="vehicleList">
+
+        <!-- Vehicle cards will be added here using JavaScript -->
+
+    </div>
+
+    <p class="empty-vehicles" id="emptyVehicles">
+        No vehicles have been added yet. Select "Add Vehicle" to get started.
+    </p>
+
+</section>
+
+<!-- Maintenance Records Section -->
+<section class="content-section">
+
+    <div class="section-header">
+        <div>
+            <h2>Maintenance Records</h2>
+            <p>Record and track completed vehicle maintenance</p>
+        </div>
+
+        <button class="primary-button" id="showMaintenanceForm">
+            + Add Maintenance
+        </button>
+    </div>
+
+    <!-- Maintenance Form -->
+    <div class="maintenance-form-container" id="maintenanceFormContainer">
+
+        <h3>Add Maintenance Record</h3>
+
+        <form id="maintenanceForm">
+
+            <div class="maintenance-form-grid">
+
+                <div class="form-group">
+                    <label for="maintenanceVehicle">Vehicle</label>
+                    <select id="maintenanceVehicle" required>
+                        <option value="">Select a vehicle</option>
+                    </select>
+                    <small class="error-message" id="vehicleError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="maintenanceDescription">Maintenance Description</label>
+                    <input
+                        type="text"
+                        id="maintenanceDescription"
+                        placeholder="Example: Oil Change"
+                    >
+                    <small class="error-message" id="descriptionError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="maintenanceDate">Maintenance Date</label>
+                    <input type="date" id="maintenanceDate">
+                    <small class="error-message" id="dateError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="maintenanceMileage">Mileage</label>
+                    <input
+                        type="number"
+                        id="maintenanceMileage"
+                        placeholder="Example: 35200"
+                        min="0"
+                        step="1"
+                    >
+                    <small class="error-message" id="maintenanceMileageError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="maintenanceCost">Cost ($)</label>
+                    <input
+                        type="number"
+                        id="maintenanceCost"
+                        placeholder="Example: 65.00"
+                        min="0"
+                        step="0.01"
+                    >
+                    <small class="error-message" id="costError"></small>
+                </div>
+
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="primary-button">
+                    Save Maintenance
+                </button>
+
+                <button type="button" class="cancel-button" id="cancelMaintenanceForm">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Maintenance History Table -->
+    <div class="content-panel history-panel">
+
+        <div class="section-header">
+            <div>
+                <h2>Maintenance History</h2>
+                <p>Your recorded vehicle maintenance</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Maintenance</th>
+                        <th>Date</th>
+                        <th>Mileage</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+
+                <tbody id="maintenanceTableBody">
+                    <!-- Records are added dynamically -->
+                </tbody>
+            </table>
+
+            <p class="empty-maintenance" id="emptyMaintenance">
+                No maintenance records have been added yet.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+            <!-- Maintenance and Expenses -->
+            <section class="dashboard-columns">
+
+                <!-- Upcoming Maintenance -->
+                <div class="content-panel">
+                    <div class="section-header">
+                        <div>
+                            <h2>Upcoming Maintenance</h2>
+                            <p>Services that need attention</p>
+                        </div>
+
+                        <a href="#">View All</a>
+                    </div>
+
+                    <div class="maintenance-list">
+
+                        
+
+                        
+
+                        
+
+                    </div>
+                </div>
+
+                <!-- Expense Summary -->
+                <div class="content-panel">
+                    <div class="section-header">
+                        <div>
+                            <h2>Expense Summary</h2>
+                            <p>Vehicle maintenance spending</p>
+                        </div>
+
+                        <a href="#">View Reports</a>
+                    </div>
+
+                    <div class="expense-summary">
+                        <p>Total Spending This Year</p>
+                        <h2 id="expenseSummary">$45.00</h2>
+                        <span class="expense-description">
+                            Across all registered vehicles
+                        </span>
+                    </div>
+
+                    <div class="expense-breakdown">
+                        
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Recent Maintenance History -->
+            <section class="content-panel history-panel">
+
+                <div class="section-header">
+                    <div>
+                        <h2>Recent Maintenance History</h2>
+                        <p>Your latest completed services</p>
+                    </div>
+
+                    <a href="#">View Full History</a>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Vehicle</th>
+                                <th>Date</th>
+                                <th>Mileage</th>
+                                <th>Cost</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Tire Rotation</td>
+                                <td>Toyota Camry</td>
+                                <td>Aug 15, 2026</td>
+                                <td>32,000 mi</td>
+                                <td>$45.00</td>
+                                <td><span class="status completed-label">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <footer class="page-footer">
+                <p>© 2026 AutoCare. Car Maintenance Management System.</p>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
